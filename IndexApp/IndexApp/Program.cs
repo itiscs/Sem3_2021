@@ -27,10 +27,10 @@ namespace IndexApp
 
 
 
-            Console.WriteLine(gr[103]);
+           // Console.WriteLine(gr[103]);
 
           
-            gr[103].Marks.Add(5);
+            gr[103].Marks.AddRange(new int[]{ 5,5,5,5,5});
 
             gr[103].Marks.Add(5);
 

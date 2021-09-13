@@ -65,9 +65,6 @@ namespace IndexApp
         }
 
 
-
-
-
         public override string ToString()
         {
             var sb = new StringBuilder();
