@@ -14,8 +14,8 @@ namespace FirstWebApp.Pages
 
         public string Name { get; set; }
         public int Age { get; set; }
-
         public string Hello { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             Name = "Tom";
@@ -23,14 +23,23 @@ namespace FirstWebApp.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(string name, int? age)
         {
-
+            if(name != null)
+                Name = name;
+            if(age != null )
+                Age = Convert.ToInt32(age);            
         }
 
-        public void OnPost(string name, int? age)
+        public IActionResult OnPost(string name, int? age)
         {
+            
+
             Hello = $"Привет {name}, {age}!";
+            return Page();
+
+            //string url = Url.Page("About", new { name = name});
+            //return Redirect(url);
 
         }
     }

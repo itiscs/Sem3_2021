@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Second.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Pages\Second.cshtml" />
   </ItemGroup>
 
@@ -21,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\Second.cshtml" />
+    <Folder Include="Pages\Новая папка\" />
   </ItemGroup>
 
 </Project>
