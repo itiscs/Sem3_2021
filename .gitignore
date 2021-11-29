@@ -22,3 +22,6 @@
 /EntityApp/.vs/EntityApp
 /EntityApp/EntityApp/bin/Debug/netcoreapp3.1
 /EntityApp/EntityApp/obj
+/ContosoApp/.vs/ContosoApp
+/ContosoApp/WebApplication1/bin/Debug/netcoreapp3.1
+/ContosoApp/WebApplication1/obj
