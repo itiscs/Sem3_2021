@@ -1,0 +1,29 @@
+﻿@page
+@model WebApplication1.Pages.Account.RegisterModel
+
+
+<h2>Регистрация</h2>
+
+<form method="post" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="Rmodel.Email">Введите Email</label><br />
+            <input type="text" asp-for="Rmodel.Email" />
+            <span asp-validation-for="Rmodel.Email" />
+        </div>
+        <div>
+            <label asp-for="Rmodel.Password">Введите пароль</label><br />
+            <input asp-for="Rmodel.Password" />
+            <span asp-validation-for="Rmodel.Password" />
+        </div>
+        <div>
+            <label asp-for="Rmodel.ConfirmPassword">Повторите пароль</label><br />
+            <input asp-for="Rmodel.ConfirmPassword" />
+            <span asp-validation-for="Rmodel.ConfirmPassword" />
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" />
+        </div>
+    </div>
+</form>

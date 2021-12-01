@@ -23,6 +23,8 @@ namespace WebApplication1.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Course> Courses { get; set; }
 
- 
+        public DbSet<User> Users { get; set; }
+
+
     }
 }
