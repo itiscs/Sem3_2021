@@ -57,6 +57,9 @@ namespace WebApplication1.Pages.Account
 
                     await Authenticate(Rmodel.Email); // аутентификация
 
+                    if (Request.Query.ContainsKey("ReturnUrl"))
+                        return Redirect(Request.Query["ReturnUrl"]);
+
                     return RedirectToPage("/Index");
                 }
                 else
