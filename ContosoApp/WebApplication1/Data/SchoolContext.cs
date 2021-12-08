@@ -24,6 +24,7 @@ namespace WebApplication1.Data
         public DbSet<Course> Courses { get; set; }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
 
     }

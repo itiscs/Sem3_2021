@@ -31,6 +31,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Courses/Index">Courses</a>
                         </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Users</a>
+                        </li>
+                        }
+
+                        <li class="nav-item">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <p>Привет, @User.Identity.Name ваша роль @User.Claims.FirstOrDefault(x => x.Type == System.Security.Claims.ClaimsIdentity.DefaultRoleClaimType).Value  </p>
+                                <a href="/Account/Logout"> Выйти </a>
+                            }
+                            else
+                            {
+                                <a href="/Account/Login"> Логин </a>
+                                <a href="/Account/Register"> Регистрация </a>
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>

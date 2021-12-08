@@ -7,16 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @if (HttpContext.User.Identity.IsAuthenticated)
-    {
-        <p>Привет,   @HttpContext.User.Identity.Name </p>
-        <a href="/Account/Logout"> Выйти </a>
-    }
-    else
-    {
-        <a href="/Account/Login"> Логин </a>
-        <a href="/Account/Register"> Регистрация </a>
-    }
+   
 
 
 </div>

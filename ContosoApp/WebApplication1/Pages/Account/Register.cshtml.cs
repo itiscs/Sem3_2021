@@ -51,11 +51,16 @@ namespace WebApplication1.Pages.Account
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == Rmodel.Email);
                 if (user == null)
                 {
-                    // добавляем пользователя в бд
-                    db.Users.Add(new User { Email = Rmodel.Email, Password = Rmodel.Password });
+                    user = new User { Email = Rmodel.Email, Password = Rmodel.Password };
+                    
+                    Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    if (userRole != null)
+                        user.Role = userRole;
+                    
+                    db.Users.Add(user);
                     await db.SaveChangesAsync();
 
-                    await Authenticate(Rmodel.Email); // аутентификация
+                    await Authenticate(user); // аутентификация
 
                     if (Request.Query.ContainsKey("ReturnUrl"))
                         return Redirect(Request.Query["ReturnUrl"]);
@@ -69,16 +74,18 @@ namespace WebApplication1.Pages.Account
         }
 
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(User user)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
+
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }

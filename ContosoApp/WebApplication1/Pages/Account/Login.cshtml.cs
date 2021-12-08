@@ -46,10 +46,11 @@ namespace WebApplication1.Pages.Account
 
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == Lmodel.Email && u.Password == Lmodel.Password);
+                User user = await db.Users.Include(u=>u.Role)
+                     .FirstOrDefaultAsync(u => u.Email == Lmodel.Email && u.Password == Lmodel.Password);
                 if (user != null)
                 {
-                    await Authenticate(Lmodel.Email); // аутентификация
+                    await Authenticate(user); // аутентификация
 
                     if(Request.Query.ContainsKey("ReturnUrl"))
                         return Redirect(Request.Query["ReturnUrl"]);
@@ -62,12 +63,13 @@ namespace WebApplication1.Pages.Account
             return Page();
         }
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(User user)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
