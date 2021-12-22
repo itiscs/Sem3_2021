@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,20 @@ namespace WebApplication1.Pages.Courses
         {
             Course = await _context.Courses.Include(c=>c.Enrollments)
                 .ToListAsync();
+        }
+        public async Task OnPostAsync(int id)
+        {
+            Course = await _context.Courses.Include(c => c.Enrollments)
+               .ToListAsync();
+            string cart = "";
+            if(HttpContext.Session.Keys.Contains("cart"))
+            {
+                cart = HttpContext.Session.GetString("cart");
+
+            }
+            var course = _context.Courses.First(c => c.CourseID==id).Title;
+            if(!cart.Contains(course))
+                HttpContext.Session.SetString("cart", cart + " " + course);
         }
     }
 }

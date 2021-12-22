@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http;
 @model WebApplication1.Pages.Courses.IndexModel
 
 @{
@@ -26,23 +27,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Course) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enrollments.Count)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Course)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enrollments.Count)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                    <form method="post">
+                        <input type="hidden" name="id" value="@item.CourseID" />
+                        <input type="submit" value="+" />
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (HttpContext.Session.Keys.Contains("cart"))
+{
+    <p>  Корзина: @HttpContext.Session.GetString("cart")   </p>
+
+}
+
+<a asp-page="/Privacy"> Очистить корзину </a>
+

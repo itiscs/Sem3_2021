@@ -20,5 +20,11 @@ namespace WebApplication1.Pages
         public void OnGet()
         {
         }
+
+        public ActionResult OnPost()
+        {
+            HttpContext.Session.Remove("cart");
+            return RedirectToPage("/Index");
+        }
     }
 }

@@ -1,8 +1,26 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http;
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@if (HttpContext.Session.Keys.Contains("cart"))
+{
+    <p>  Корзина: @HttpContext.Session.GetString("cart")   </p>
+
+}
+else
+            {
+                <p> Корзина пуста!</p>
+            }
+
+<p> Вы уверены что хотите очистить корзину?</p>
+
+<form method="post">
+
+    <input type="submit" value="Да" />
+</form>
+
+
